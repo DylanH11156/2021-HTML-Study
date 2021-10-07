@@ -4,45 +4,89 @@
     <meta charset="UTF-8">
     <title>Bass Clarinet</title>
 </head>
+<body>
 <h1>General Information About Bass Clarinet:</h1>
-<hr></hr>
+<hr>
 <style>
     body {
         background-color: lightsteelblue;
         opacity: 1;
     }
 </style>
-<body>
 <ul>
-    <li>Bb Clarinet Link: <a href="http://localhost:63342/2021-HTML-Study/WebProject1/Bb%20Clarinet.html?_ijt=kfrt8lr4so2mdn5881egt68ump"> Bb Clarinet </a></li>
-    <li>Alto Clarinet Link: <a href="http://localhost:63342/2021-HTML-Study/WebProject1/Alto%20Clarinet.html?_ijt=l00abdqch27pejc0pk8bfclp27"> Alto Clarinet</a></li>
-    <li>Contrabass Clarinet Link: <a href="http://localhost:63342/2021-HTML-Study/WebProject1/ContraBassClarinet.html?_ijt=8dqnntgkpm96p3j0gvjnv14v8j"> Contrabass Clarinet</a></li>
-    <li>Index Link: <a href="http://localhost:63342/2021-HTML-Study/WebProject1/index.html?_ijt=d6cbm450o4ih02k2puov275jna&_ij_reload=RELOAD_ON_SAVE">Index</a></li>
+    <li>Bb Clarinet Link: <a href=
+                                     "http://localhost:63342/2021-HTML-Study/WebProject1/Bb%20Clarinet.html?_ijt=kfrt8lr4so2mdn5881egt68ump">
+        Bb Clarinet</a></li>
+    <li>Alto Clarinet Link: <a href=
+                                       "http://localhost:63342/2021-HTML-Study/WebProject1/Alto%20Clarinet.html?_ijt=l00abdqch27pejc0pk8bfclp27">
+        Alto Clarinet</a></li>
+    <li>Contrabass Clarinet Link: <a href=
+                                             "http://localhost:63342/2021-HTML-Study/WebProject1/ContraBassClarinet.html?_ijt=8dqnntgkpm96p3j0gvjnv14v8j">
+        Contrabass Clarinet</a></li>
+    <li>Index Link: <a href=
+                               "http://localhost:63342/2021-HTML-Study/WebProject1/index.html?_ijt=d6cbm450o4ih02k2puov275jna&amp;_ij_reload=RELOAD_ON_SAVE">
+        Index</a></li>
 </ul>
 <br>
-</br>
-<Table border="2" width="600px" height="600px" style="float:left;">
-      <tr>
-          <th colspan="5">Bass Clarinet Information</th>
-      </tr>
-<tr>
-    <td>Cost</td>
-    <td>1500$ - 15000$</td>
-</tr>
-<tr>
-    <td>Difficulty</td>
-    <td>Intermediate, due to size, but does have interesting parts</td>
-</tr>
-<tr>
-    <td>Octaves</td>
-    <td>Up to Four Octaves</td>
-</tr>
-</Table>
-<img src="pics/BassClarinet.jpg" width="500px" height="600px"
+<br>
+<table style="float:left;" width="600px" height="600px" border="2">
+    <tbody>
+    <tr>
+        <th colspan="5">Bass Clarinet Information</th>
+    </tr>
+    <tr>
+        <td>Cost</td>
+        <td>1500$ - 15000$</td>
+    </tr>
+    <tr>
+        <td>Difficulty</td>
+        <td>Intermediate, due to size, but does have interesting parts</td>
+    </tr>
+    <tr>
+        <td>Octaves</td>
+        <td>Up to Four Octaves</td>
+    </tr>
+    </tbody>
+</table>
+<img src="pics/BassClarinet.jpg" width="500px" height="600px" alt=
+        "#########">
+<script>
+    (function() {
+        var ws = new WebSocket('ws://' + window.location.host + '/jb-server-page?reloadServiceClientId=19');
+        ws.onmessage = function (msg) {
+            if (msg.data === 'reload') {
+                window.location.reload();
+            }
+            if (msg.data.startsWith('update-css ')) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName('link');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== 'stylesheet') continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    }
+                    else {
+                        var indexOfQuest = newHref.indexOf('?');
+                        if (indexOfQuest >= 0) {
+                            // to support ?foo#hash
+                            clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                newHref.substring(indexOfQuest + 1);
+                        }
+                        else {
+                            clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
+</script>
 </body>
 </html>
-
-
 
 
 
